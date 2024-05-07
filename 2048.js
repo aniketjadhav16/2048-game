@@ -187,3 +187,43 @@ function slideDown() {
 
     }
 }
+
+function isGameOver() {
+    if (hasEmptyTile()) return false;
+    
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < columns; c++) {
+            if ((r + 1 < rows && board[r][c] === board[r + 1][c]) ||
+                (c + 1 < columns && board[r][c] === board[r][c + 1])) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function endGame() {
+    alert("Game Over! Your final score is: " + score);
+}
+
+document.addEventListener("keyup", (e) => {
+    if (isGameOver()) {
+        endGame();
+        return;
+    }
+
+    if (e.code == "ArrowLeft") {
+        slideLeft();
+        setTwo();
+    } else if (e.code == "ArrowRight") {
+        slideRight();
+        setTwo();
+    } else if (e.code == "ArrowUp") {
+        slideUp();
+        setTwo();
+    } else if (e.code == "ArrowDown") {
+        slideDown();
+        setTwo();
+    }
+    document.getElementById("score").innerText = score;
+});
